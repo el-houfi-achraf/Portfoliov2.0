@@ -1,0 +1,27 @@
+"use client";
+
+import { Canvas } from "@react-three/fiber";
+import { Suspense } from "react";
+import Loader from "./Loader";
+
+interface CanvasContainerProps {
+  children: React.ReactNode;
+}
+
+const CanvasContainer = ({ children }: CanvasContainerProps) => {
+  return (
+    <div className="fixed top-0 left-0 w-full h-full -z-10">
+      <Canvas
+        camera={{ position: [0, 0, 5], fov: 75 }}
+        dpr={[1, 2]} // Optimize for pixel ratio
+        gl={{ antialias: true, alpha: true }}
+      >
+        <Suspense fallback={null}>
+          {children}
+        </Suspense>
+      </Canvas>
+    </div>
+  );
+};
+
+export default CanvasContainer;
